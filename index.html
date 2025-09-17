@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Links Hub</title>
+  <style>
+    :root{
+      --bg:#0f172a; --card:#0b1220; --accent:#7c3aed; --text:#e6eef8;
+    }
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans KR',sans-serif}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#071029 0%, #071a2a 60%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:32px}
+    .wrap{width:100%;max-width:960px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#0ea5b8);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;box-shadow:0 6px 24px rgba(2,6,23,.6)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 18px;color:rgba(230,238,248,.8)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,.55);display:flex;flex-direction:column;gap:8px;min-height:96px}
+    .card a{color:var(--text);text-decoration:none;font-weight:600}
+    .meta{font-size:13px;color:rgba(230,238,248,.7);display:flex;justify-content:space-between;align-items:center}
+    .btn{display:inline-block;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);text-decoration:none}
+    footer{margin-top:20px;color:rgba(230,238,248,.6);font-size:13px;text-align:center}
+    .search{display:flex;gap:8px;margin-bottom:12px}
+    .search input{flex:1;padding:10px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:var(--text);outline:none}
+    .search button{padding:10px 12px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:600}
+    @media (max-width:420px){h1{font-size:18px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">AI</div>
+      <div>
+        <h1>내 AI 포털</h1>
+        <p class="lead">자주 쓰는 AI 사이트들을 한곳에 모아놓은 허브입니다. 클릭하면 새 창으로 열립니다.</p>
+      </div>
+    </header>
+
+    <div class="search">
+      <input id="q" placeholder="검색어로 AI 사이트 바로 찾기 (예: 이미지 생성, 챗)" />
+      <button onclick="search()">검색</button>
+    </div>
+
+    <div class="grid" id="links">
+      <!-- 예시 링크들 (원하시는 사이트로 바꿔서 사용하세요) -->
+      <div class="card">
+        <div class="meta"><span>ChatGPT</span><a class="btn" href="https://chat.openai.com" target="_blank" rel="noopener">열기</a></div>
+        <div>대화형 AI (OpenAI)</div>
+      </div>
+
+      <div class="card">
+        <div class="meta"><span>Google Bard</span><a class="btn" href="https://bard.google.com" target="_blank" rel="noopener">열기</a></div>
+        <div>Google의 대화형 AI</div>
+      </div>
+
+      <div class="card">
+        <div class="meta"><span>Midjourney</span><a class="btn" href="https://www.midjourney.com" target="_blank" rel="noopener">열기</a></div>
+        <div>이미지 생성 AI</div>
+      </div>
+
+      <div class="card">
+        <div class="meta"><span>DALL·E</span><a class="btn" href="https://labs.openai.com" target="_blank" rel="noopener">열기</a></div>
+        <div>이미지 생성 (OpenAI)</div>
+      </div>
+
+      <div class="card">
+        <div class="meta"><span>Hugging Face</span><a class="btn" href="https://huggingface.co" target="_blank" rel="noopener">열기</a></div>
+        <div>모델과 데모 모음</div>
+      </div>
+
+      <div class="card">
+        <div class="meta"><span>Stable Diffusion Web</span><a class="btn" href="https://stability.ai" target="_blank" rel="noopener">열기</a></div>
+        <div>이미지 / 모델 정보</div>
+      </div>
+    </div>
+
+    <footer>
+      ⚠️ 외부 사이트를 페이지에 직접 불러오는(iframe) 일부 시도는 보안 설정(X-Frame-Options) 때문에 차단될 수 있습니다. 안전하게 새 탭으로 여는 방식으로 구성했습니다.
+    </footer>
+  </div>
+
+  <script>
+    function search(){
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      if(!q) { alert('검색어를 입력하세요'); return; }
+      const cards = Array.from(document.querySelectorAll('.card'));
+      const found = cards.find(c => c.textContent.toLowerCase().includes(q));
+      if(found){
+        const link = found.querySelector('a').href;
+        window.open(link, '_blank');
+      } else {
+        // 구글 검색으로 대체
+        window.open('https://www.google.com/search?q=' + encodeURIComponent(q + ' AI'), '_blank');
+      }
+    }
+  </script>
+</body>
+</html>
